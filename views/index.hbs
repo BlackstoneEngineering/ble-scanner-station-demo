@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>ARM mbed DAC demo</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <p>The webpage has loaded</p>
+    <div id="beacons">
+	{{#each thing}}
+	 <h2> {{name}}</h2>
+	{{/each}}
+    </div>
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/socket.io.js"></script>
+
+    <script type="text/javascript"> 
+	$(function(){
+		var socket = io();
+		
+		socket.on('found',function(data){
+			console.log("Found beacon",data);
+			
+		});
+	});
+    </script>
+  </body>
+</html>
+
