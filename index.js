@@ -51,13 +51,10 @@ noble.on('discover',function(dev){
 
 		});
 	};
-
+});
 
 // Start the app
 server.listen(port, function() {
-    console.log('listening at http://localhost:%s', port);
-  })
-
+  console.log('listening at http://localhost:%s', port);
 });
-
 
