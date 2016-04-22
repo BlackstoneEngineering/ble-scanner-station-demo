@@ -6,9 +6,9 @@
 
     <title>ARM mbed DAC demo</title>
 
-    <link href='/css/reset.css' rel='stylesheet' type='text/css'>
+    <link href='css/reset.css' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link href='/css/style.css' rel='stylesheet' type='text/css'>
+    <link href='css/style.css' rel='stylesheet' type='text/css'>
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -26,13 +26,16 @@
     </style>
   </head>
   <body>
-    <div id="full-message">
-      <span id="pre-message">{{preMessage}}</span><span id="message">test</span><span id="post-message">{{postMessage}}</span>
+    <div id="message-content">
+      <div id="full-message">
+        <span id="pre-message">{{preMessage}}</span><span id="message">test</span><span id="post-message">{{postMessage}}</span>
+      </div>
     </div>
 
     <div id="logos">
       <div class="logo"><img title="ARM Logo" alt="ARM Logo" src="img/ARMmbedLogo.png"></div>
       {{#if partnerLogo}}
+      <div class="logo">+</div>
       <div class="logo"><img title="Partner Logo" alt="Partner Logo" src="{{partnerLogo}}"></div>
       {{/if}}
     </div>

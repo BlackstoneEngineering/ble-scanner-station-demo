@@ -13,7 +13,7 @@ var pageConfig = {
   partnerLogo: process.env.PARTNER_LOGO,
   backgroundColor: process.env.BACKGROUND_COLOR || "#159ab5",
   fontColor: process.env.FONT_COLOR || "#ffffff",
-  messageColor: process.env.MESSAGE_COLOR || process.env.FONT_COLOR || "#ffffff"
+  messageColor: process.env.MESSAGE_COLOR || "#e8922d"
 };
 
 var port = process.env.PORT || 8080;
