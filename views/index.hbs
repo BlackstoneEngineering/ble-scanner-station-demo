@@ -6,29 +6,49 @@
 
     <title>ARM mbed DAC demo</title>
 
+    <link href='/css/reset.css' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='/css/style.css' rel='stylesheet' type='text/css'>
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <style>
+      body {
+        background-color: {{backgroundColor}};
+        color: {{fontColor}};
+      }
+
+      #message {
+        color: {{messageColor}};
+      }
+    </style>
   </head>
   <body>
-    <p>The webpage has loaded</p>
-    <div id="beacons">
-	 <h2 id='name'>test</h2>
+    <div id="full-message">
+      <span id="pre-message">{{preMessage}}</span><span id="message">test</span><span id="post-message">{{postMessage}}</span>
     </div>
+
+    <div id="logos">
+      <div class="logo"><img title="ARM Logo" alt="ARM Logo" src="img/ARMmbedLogo.png"></div>
+      {{#if partnerLogo}}
+      <div class="logo"><img title="Partner Logo" alt="Partner Logo" src="{{partnerLogo}}"></div>
+      {{/if}}
+    </div>
+
     <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
 
-    <script type="text/javascript"> 
-	$(function(){
-		var socket = io();
-		
-		socket.on('found',function(data){
-			console.log("Found beacon",data);
-			$('#name').html(function(){return data.name});
-		});
-	});
+    <script type="text/javascript">
+    	$(function(){
+    		var socket = io();
+
+    		socket.on('found',function(data){
+    			console.log("Found beacon",data);
+    			$('#message').html(function(){return data.name});
+    		});
+    	});
     </script>
   </body>
 </html>
