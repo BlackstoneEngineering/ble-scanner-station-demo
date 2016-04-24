@@ -10,13 +10,16 @@ var noble = require('noble');
 var pageConfig = {
   preMessage: process.env.PRE_MESSAGE || "Hi ",
   postMessage: process.env.POST_MESSAGE || ", welcome to the booth of awesome!",
-  partnerLogo: process.env.PARTNER_LOGO,
+  partnerLogo: process.env.LOGO_2,
+  logo2: process.env.LOGO_2,
+  logo1: process.env.LOGO_1,
   backgroundColor: process.env.BACKGROUND_COLOR || "#159ab5",
   fontColor: process.env.FONT_COLOR || "#ffffff",
   messageColor: process.env.MESSAGE_COLOR || "#e8922d"
 };
 
 var port = process.env.PORT || 8080;
+var configRSSI = process.env.RSSI || -76;
 
 // Create the express app
 var app = express();
@@ -43,18 +46,20 @@ console.log("Bluetooth State is : ",noble.state)
 noble.on('stateChange',function(state){
 	if(state == 'poweredOn'){
 		console.log("Bluetooth stateChange, start scanning...");
-		noble.startScanning();
+		noble.startScanning([],true);
 	}else{
 		noble.stopScanning();
 	}
 });
 
 noble.on('discover',function(dev){
-	if(dev.advertisement.localName){
+	if(dev.advertisement.localName && dev.rssi>configRSSI){
 		console.log("Found Device ",dev.advertisement.localName," with rssi ",dev.rssi);
 		sockets.forEach(function(socket){
 			socket.emit('found',{'name':dev.advertisement.localName,'rssi':dev.rssi});
 		});
+	} else{
+		console.log("...",dev.advertisement.localName,":",dev.rssi,"dB")
 	};
 });
 

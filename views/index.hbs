@@ -33,10 +33,12 @@
     </div>
 
     <div id="logos">
-      <div class="logo"><img title="ARM Logo" alt="ARM Logo" src="img/ARMmbedLogo.png"></div>
-      {{#if partnerLogo}}
+      {{#if logo1}}
+      <div id="logo1" class="logo"><img title="Logo 1" alt="Logo 1" src="{{logo1}}"></div>
+      {{/if}}
+      {{#if logo2}}
       <div class="logo">+</div>
-      <div class="logo"><img title="Partner Logo" alt="Partner Logo" src="{{partnerLogo}}"></div>
+      <div id="logo2" class="logo"><img title="Logo 1" alt="Logo 2" src="{{logo2}}"></div>
       {{/if}}
     </div>
 
