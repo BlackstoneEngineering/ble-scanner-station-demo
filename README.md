@@ -22,6 +22,7 @@ If you would like to duplicate this demo you can use the webapp here : TODO to g
 
 #### Customization
 Make sure to swap out the logos in the `/public/images` folder for whatever company you are collaborating with. 
+You can enable / disable the logos, change the background color, text color and messages in the `.env` file.
 
 ## Liscense
 Apache 2.0, feel free to re-use for personal or commercial needs. 
