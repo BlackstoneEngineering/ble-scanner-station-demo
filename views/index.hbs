@@ -55,7 +55,7 @@
 
     		socket.on('found',function(data){
     			console.log("Found beacon",data);
-    			$('#message').html(function(){return data.name});
+    			$('#message').text(function(){return data.name});
           $("#full-message").fitText();
     		});
     	});
