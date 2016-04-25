@@ -15,7 +15,7 @@ The beacons are programmed using this program TODO. This program is then compile
 The Raspberry Pi 3 scans for beacons using the NodeJS noble plugin. Displayed on the monitor is a full screen webapp that has a websocked open to the back end. When noble see's a named beacon with acceptable rssi (meaning its close) then it sends the name over the websocket to the web app. The web app then displays the name on the screen, something along the lines of `Welcome __, to the booth of awesome!`, where `__` is filled in with the persons name. 
 
 ## media
-![Screenshot](https://github.com/BlackstoneEngineering/ble-scanner-station-demo/blob/master/screenshot.PNG)
+![Screenshot](https://github.com/BlackstoneEngineering/ble-scanner-station-demo/blob/master/screenshot.PNG)<br>
 This is what the demo looks like, the orange text will change based on the most powerful BLE beacon nearby. 
 
 ## How to use
