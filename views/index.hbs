@@ -28,7 +28,7 @@
   <body>
     <div id="message-content">
       <div id="full-message">
-        <span id="pre-message">{{preMessage}}</span><span id="message">test</span><span id="post-message">{{postMessage}}</span>
+        <span id="pre-message">{{preMessage}}</span><span id="message">name</span><span id="post-message">{{postMessage}}</span>
       </div>
     </div>
 
@@ -44,6 +44,10 @@
 
     <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
+    <script type="text/javascript" src="js/jquery.fittext.js"></script>
+    <script type="text/javascript">
+      $("#full-message").fitText();
+    </script>
 
     <script type="text/javascript">
     	$(function(){
@@ -52,6 +56,7 @@
     		socket.on('found',function(data){
     			console.log("Found beacon",data);
     			$('#message').html(function(){return data.name});
+          $("#full-message").fitText();
     		});
     	});
     </script>

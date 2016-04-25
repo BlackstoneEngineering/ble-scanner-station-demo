@@ -1,10 +1,9 @@
 body {
   font-family: 'Open Sans', sans-serif;
-  font-size: 10em;
 }
 
 html,body,#message-content {
-  height: 100%;
+  height: 50vw;
 }
 
 #message-content {
@@ -13,25 +12,25 @@ html,body,#message-content {
 
 #full-message {
   position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
+  top: 15%;
+  bottom: 25%;
+  border:5%;
   text-align: center;
 }
 
 #logos {
   position: fixed;
   left: 0;
-  bottom: 1rem;
+  bottom: 0rem;
 }
 
 .logo {
-  font-size: 0.5em;
+  font-size: 5vw;
   float: left;
   padding-left: 1rem;
 }
 
-
 .logo img {
-  max-height: 1em;
+  max-height: 5vw;
   max-width: 100%;
 }
