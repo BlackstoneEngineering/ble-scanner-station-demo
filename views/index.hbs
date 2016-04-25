@@ -9,6 +9,14 @@
     <link href='css/reset.css' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='css/style.css' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/socket.io.js"></script>
+    <script type="text/javascript" src="js/jquery.fittext.js"></script>
+    <script type="text/javascript">
+	$(document).ready(function(){
+		$("#full-message").fitText();
+	});
+    </script>
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -41,13 +49,6 @@
       <div id="logo2" class="logo"><img title="Logo 1" alt="Logo 2" src="{{logo2}}"></div>
       {{/if}}
     </div>
-
-    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="js/socket.io.js"></script>
-    <script type="text/javascript" src="js/jquery.fittext.js"></script>
-    <script type="text/javascript">
-      $("#full-message").fitText(1.2, { minFontSize: '1em', maxFontSize: '15vh' });
-    </script>
 
     <script type="text/javascript">
     	$(function(){
