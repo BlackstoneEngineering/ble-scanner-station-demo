@@ -53,11 +53,15 @@ noble.on('stateChange',function(state){
 });
 
 noble.on('discover',function(dev){
-	if(dev.advertisement.localName && dev.rssi>configRSSI && dev.advertisement.manufacturerData.toString("utf8",0,3) === "dac"){
-		console.log("Found Device ",dev.advertisement.localName," with rssi ",dev.rssi);
-		sockets.forEach(function(socket){
-			socket.emit('found',{'name':dev.advertisement.localName,'rssi':dev.rssi});
-		});
+	if(dev.advertisement.localName && dev.rssi>configRSSI){
+		if(dev.advertisement.manufacturerData != undefined){
+			if(dev.advertisement.manufacturerData.toString("utf8",0,3) === "dac"){
+				console.log("Found Device ",dev.advertisement.localName," with rssi ",dev.rssi);
+				sockets.forEach(function(socket){
+					socket.emit('found',{'name':dev.advertisement.localName,'rssi':dev.rssi});
+				});
+			}
+		}
 	} else{
 		//console.log("...",dev.advertisement.localName,":",dev.rssi,"dB")
 	};

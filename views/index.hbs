@@ -53,11 +53,34 @@
     <script type="text/javascript">
     	$(function(){
     		var socket = io();
+        var names = {};
+
+        // update the html every second
+        setInterval(function(){
+          $('#message').html("");
+          for(var name in names){
+            $('#message').append(name+', ');
+          }
+        },5000);
+
+        // prune names list every 3 seconds
+        setInterval(function(){
+          var time =  Math.floor(Date.now() / 1000);
+          console.log('time is',time,"names are ",names)
+          for(var name in names){
+            if(time - names[name] > 10){
+              // remove from names list
+              console.log("removing",name);
+              delete names[name];
+            }
+          }
+        },3000);
 
     		socket.on('found',function(data){
-    			console.log("Found beacon",data);
-    			$('#message').html(function(){return data.name});
-          $("#full-message").fitText();
+    			//console.log("Found beacon",data);
+          names[data.name] = Math.floor(Date.now() / 1000);
+    			// $('#message').html(function(){return data.name});
+          // $("#full-message").fitText();
     		});
     	});
     </script>
