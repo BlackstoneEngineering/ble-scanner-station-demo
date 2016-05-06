@@ -2,26 +2,33 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-html,body,#message-content {
-  height: 50vh;
+html,body {
+  height: 100%;
 }
 
 #message-content {
   position: relative;
+  height: 90vh;
 }
 
-#full-message {
-  position: relative;
-  top: 15%;
-  bottom: 25%;
-  border:5%;
-  text-align: center;
+.padding {
+  padding: 1rem;
 }
 
 #logos {
   position: fixed;
   left: 0;
   bottom: 0rem;
+}
+
+.section {
+  width: 33%;
+  height: 100%;
+  float: left;
+}
+
+#names-content {
+  overflow-y: auto;
 }
 
 .logo {

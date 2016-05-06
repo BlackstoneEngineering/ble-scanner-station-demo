@@ -13,8 +13,9 @@
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" src="js/jquery.fittext.js"></script>
     <script type="text/javascript">
-	$(document).ready(function(){
-		$("#full-message").fitText();
+  $(document).ready(function(){
+		$("#pre-message").fitText(1.2);
+    $("#post-message").fitText(1.2);
 	});
     </script>
 
@@ -28,15 +29,23 @@
         color: {{fontColor}};
       }
 
-      #message {
+      .message {
         color: {{messageColor}};
       }
     </style>
   </head>
   <body>
     <div id="message-content">
-      <div id="full-message">
-        <span id="pre-message">{{preMessage}}</span><span id="message">name</span><span id="post-message">{{postMessage}}</span>
+      <div id="pre-message" class="section">
+        <div class="padding">
+          {{preMessage}}
+        </div>
+      </div>
+      <div id="names-content" class="section"></div>
+      <div id="post-message" class="section">
+        <div class="padding">
+          {{postMessage}}
+        </div>
       </div>
     </div>
 
@@ -53,34 +62,34 @@
     <script type="text/javascript">
     	$(function(){
     		var socket = io();
-        var names = {};
+        var maxNames = 30;
+        var count = 0;
 
-        // update the html every second
-        setInterval(function(){
-          $('#message').html("");
-          for(var name in names){
-            $('#message').append(name+', ');
-          }
-        },5000);
+        jQElement = $('#names-content');
 
-        // prune names list every 3 seconds
-        setInterval(function(){
-          var time =  Math.floor(Date.now() / 1000);
-          console.log('time is',time,"names are ",names)
-          for(var name in names){
-            if(time - names[name] > 10){
-              // remove from names list
-              console.log("removing",name);
-              delete names[name];
-            }
+        function addName(name) {
+          jQElement.find('.name.message').removeClass('message');
+          jQElement.append('<div class="name message">' + name + '</div>');
+
+          if (count > maxNames) {
+            jQElement.find('.name').first().remove();
+          } else {
+            count += 1;
           }
-        },3000);
+
+          jQElement.find('.message').fitText(1.2);
+
+          var elem = jQElement[0];
+          elem.scrollTop = elem.scrollHeight;
+        }
+
+        // Remove this function to stop random name addition
+        setInterval(function() {
+          addName(Math.random());
+        }, 500);
 
     		socket.on('found',function(data){
-    			//console.log("Found beacon",data);
-          names[data.name] = Math.floor(Date.now() / 1000);
-    			// $('#message').html(function(){return data.name});
-          // $("#full-message").fitText();
+          addName(data.Name);
     		});
     	});
     </script>
