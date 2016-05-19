@@ -22,6 +22,8 @@ This is what the demo looks like, the orange text will change based on the most 
 1. load [this webapp](https://github.com/ARMmbed/mbed-compile-api-js/tree/dac-demo) onto a tablet to generate the embedded device code.
 2. Install Raspbian Noobs on a Raspberry Pi 3 and then run the `Rpi3setup.sh` script on the Raspberry Pi 3, `sudo sh Rpi3setup.sh`. This script will install all the necessary bits to run the demo and setup the RPi to automatically go into kiosk mode on startup. 
 
+Alternatively you can run this on a linux / mac machine, install pre-reqs using `sudo npm install` and then run the code using `sudo node index.js`
+
 
 #### Customization
 All customization happens in the `.env` file.
