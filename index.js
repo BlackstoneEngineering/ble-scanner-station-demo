@@ -9,7 +9,7 @@ var noble = require('noble');
 // Config
 var pageConfig = {
   preMessage: process.env.PRE_MESSAGE || "Hi ",
-  postMessage: process.env.POST_MESSAGE || ", welcome to the booth of awesome!",
+  postMessage: process.env.POST_MESSAGE || "welcome to the booth of awesome!",
   partnerLogo: process.env.LOGO_2,
   logo2: process.env.LOGO_2,
   logo1: process.env.LOGO_1,
@@ -56,7 +56,7 @@ noble.on('discover',function(dev){
 	if(dev.advertisement.localName && dev.rssi>configRSSI){
 		if(dev.advertisement.manufacturerData != undefined){
 			if(dev.advertisement.manufacturerData.toString("utf8",0,3) === "dac"){
-				console.log("Found Device ",dev.advertisement.localName," with rssi ",dev.rssi);
+				//console.log("Found Device ",dev.advertisement.localName," with rssi ",dev.rssi);
 				sockets.forEach(function(socket){
 					socket.emit('found',{'name':dev.advertisement.localName,'rssi':dev.rssi});
 				});

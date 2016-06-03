@@ -36,7 +36,7 @@
   <body>
     <div id="message-content">
       <div id="full-message">
-        <span id="pre-message">{{preMessage}}</span><span id="message">name</span><span id="post-message">{{postMessage}}</span>
+        <span id="pre-message">{{preMessage}}</span><span id="message"></span><span id="post-message">{{postMessage}}</span>
       </div>
     </div>
 
@@ -55,30 +55,45 @@
     		var socket = io();
         var names = {};
 
-        // update the html every second
-        setInterval(function(){
-          $('#message').html("");
-          for(var name in names){
-            $('#message').append(name+', ');
-          }
-        },5000);
+        // // update the html every second
+        // setInterval(function(){
+        //   $('#message').html("");
+        //   for(var name in names){
+        //     $('#message').append(name+', ');
+        //   }
+        // },2000);
 
         // prune names list every 3 seconds
         setInterval(function(){
           var time =  Math.floor(Date.now() / 1000);
-          console.log('time is',time,"names are ",names)
+          //console.log('time is',time,"names are ",names.toString())
+          $('span').filter(":hidden").remove();
           for(var name in names){
-            if(time - names[name] > 10){
+            if(time - names[name]['time'] > 3){
               // remove from names list
               console.log("removing",name);
               delete names[name];
+              $('#'+name).fadeOut(1000);
             }
           }
         },3000);
 
     		socket.on('found',function(data){
     			//console.log("Found beacon",data);
-          names[data.name] = Math.floor(Date.now() / 1000);
+          name = data.name.replace(/\s+/g,'');
+          if(names.hasOwnProperty(name)){
+            names[name]['time'] = Math.floor(Date.now() / 1000);
+          }else{
+            console.log('Adding ', data.name, ' as ', name);
+            names[name]={};
+            names[name]['name'] = data.name;
+            names[name]['time'] = Math.floor(Date.now() / 1000);
+            if($("#"+name).length == 0){
+              $('#message').append('<span hidden id="'+name+'">'+data.name+", "+'</span>');
+            }
+            //console.log('<span hidden id="'+name+'">'+data.name+'</span>')
+            $('#'+name).fadeIn(700)
+          }
     			// $('#message').html(function(){return data.name});
           // $("#full-message").fitText();
     		});
