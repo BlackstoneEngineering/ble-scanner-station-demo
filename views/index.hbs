@@ -14,7 +14,8 @@
     <script type="text/javascript" src="js/jquery.fittext.js"></script>
     <script type="text/javascript">
 	$(document).ready(function(){
-		$("#full-message").fitText();
+    $("#full-message").fitText();
+    
 	});
     </script>
 
@@ -35,8 +36,10 @@
   </head>
   <body>
     <div id="message-content">
-      <div id="full-message">
-        <span id="pre-message">{{preMessage}}</span><span id="message"></span><span id="post-message">{{postMessage}}</span>
+      <div id="full-message" >
+        <span id="pre-message">{{preMessage}}</span>
+        <div id="message-wrapper" ><span id="message"></span></div>
+        <span id="post-message">{{postMessage}}</span>
       </div>
     </div>
 
@@ -55,19 +58,12 @@
     		var socket = io();
         var names = {};
 
-        // // update the html every second
-        // setInterval(function(){
-        //   $('#message').html("");
-        //   for(var name in names){
-        //     $('#message').append(name+', ');
-        //   }
-        // },2000);
-
         // prune names list every 3 seconds
         setInterval(function(){
           var time =  Math.floor(Date.now() / 1000);
           //console.log('time is',time,"names are ",names.toString())
           $('span').filter(":hidden").remove();
+          $("#message").fitText({maxFontPixels:0});
           for(var name in names){
             if(time - names[name]['time'] > 3){
               // remove from names list
@@ -92,7 +88,9 @@
               $('#message').append('<span hidden id="'+name+'">'+data.name+", "+'</span>');
             }
             //console.log('<span hidden id="'+name+'">'+data.name+'</span>')
-            $('#'+name).fadeIn(700)
+            $('#'+name).fadeIn(700);
+            //$("#full-message").fitText();
+            
           }
     			// $('#message').html(function(){return data.name});
           // $("#full-message").fitText();

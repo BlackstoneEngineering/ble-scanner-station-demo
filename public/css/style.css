@@ -18,6 +18,12 @@ html,body,#message-content {
   text-align: center;
 }
 
+#message-wrapper{
+  max-height: 30vh;
+  font-size: 5vh;
+  
+}
+
 #logos {
   position: fixed;
   left: 0;
