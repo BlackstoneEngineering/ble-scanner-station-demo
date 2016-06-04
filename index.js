@@ -36,6 +36,7 @@ app.get('/', function(req,res){
 var sockets = [];
 var server = http.Server(app);
 var io = ioLib(server);
+
 storage.initSync();
 var devices = storage.getItem('devices')
 console.log("devices = ", devices)
@@ -43,6 +44,11 @@ if(devices == undefined){
 	devices = {}
 	console.log("devices is uninitialized, resettign to ", devices)
 }
+
+// save database every 10 minutes
+setInterval(function() {
+    storage.setItem('devices',devices);
+}, 10*60*1000);
 
 // Setup sockets for updating web UI
 io.on('connection', function (socket) {
@@ -71,10 +77,24 @@ noble.on('discover',function(dev){
 				});
 				// add device to list of seen devices
 				if(devices.hasOwnProperty(dev.advertisement.localName)){
-					// do nothing
+					// device has been seen before
+					var time = Date.now();
+					var diff = time - devices[dev.advertisement.localName]['lastSeen']
+					if( diff > 60*1000){
+						// if >60sec has gone by reset the last seen time
+						//console.log(dev.advertisement.localName,'hasnt been seen in over 60sec, resetting last seen time')
+						devices[dev.advertisement.localName]['lastSeen'] = time;
+					}else{
+						//console.log("Adding ",diff," to ", dev.advertisement.localName)
+						devices[dev.advertisement.localName]['totalSeconds'] =  devices[dev.advertisement.localName]['totalSeconds'] + diff;
+						devices[dev.advertisement.localName]['lastSeen'] = time;
+					}
+
 				}else{
-					console.log("Adding ",dev.advertisement.localName," to database")
-					devices[dev.advertisement.localName] = 'seen';
+					// device has not been seen before
+					console.log("Adding ",dev.advertisement.localName," to database");
+					var time = Date.now();
+					devices[dev.advertisement.localName] = {'lastSeen':time,'totalSeconds':0};
 					storage.setItem('devices',devices);
 				}
 			}
