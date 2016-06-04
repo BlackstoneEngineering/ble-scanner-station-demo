@@ -5,6 +5,8 @@ var http = require('http');
 var path = require('path');
 var express = require('express');
 var noble = require('noble');
+var storage = require('node-persist');
+
 
 // Config
 var pageConfig = {
@@ -34,6 +36,13 @@ app.get('/', function(req,res){
 var sockets = [];
 var server = http.Server(app);
 var io = ioLib(server);
+storage.initSync();
+var devices = storage.getItem('devices')
+console.log("devices = ", devices)
+if(devices == undefined){
+	devices = {}
+	console.log("devices is uninitialized, resettign to ", devices)
+}
 
 // Setup sockets for updating web UI
 io.on('connection', function (socket) {
@@ -60,6 +69,14 @@ noble.on('discover',function(dev){
 				sockets.forEach(function(socket){
 					socket.emit('found',{'name':dev.advertisement.localName,'rssi':dev.rssi});
 				});
+				// add device to list of seen devices
+				if(devices.hasOwnProperty(dev.advertisement.localName)){
+					// do nothing
+				}else{
+					console.log("Adding ",dev.advertisement.localName," to database")
+					devices[dev.advertisement.localName] = 'seen';
+					storage.setItem('devices',devices);
+				}
 			}
 		}
 	} else{
