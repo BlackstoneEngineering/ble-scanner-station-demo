@@ -4,7 +4,7 @@ sudo dpkg --configure -a
 
 # System Updates
 sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install xdotool vim htop -y
+sudo apt-get install iceweasel xdotool vim htop -y
 
 # NodeJS installs
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
@@ -14,9 +14,11 @@ sudo apt-get install -y nodejs
 sudo touch /home/pi/startup.sh
 sudo echo 'cd /home/pi/ble-scanner-station-demo' >> /home/pi/startup.sh
 sudo echo 'sudo node index.js &' >> /home/pi/startup.sh
-sudo echo '(epiphany 127.0.0.1:8080 & sleep 10 & xdotool key F11 )&' >> /home/pi/startup.sh
+sudo echo '(iceweasel 127.0.0.1:8080 & sleep 10 & xdotool key F11 )&' >> /home/pi/startup.sh
 sudo echo 'sleep 10' >> /home/pi/startup.sh
 sudo echo 'xdotool key F11' >> /home/pi/startup.sh
+sudo echo 'sleep 5' >> /home/pi/startup.sh
+sudo echo 'xdotool mousemove 5000 5000' >> /home/pi/startup.sh
 
 # Enable Kiosk Mode
 sudo apt-get install x11-server-utils unclutter -y
