@@ -69,7 +69,13 @@
               // remove from names list
               console.log("removing",name);
               delete names[name];
-              $('#'+name).fadeOut(1000);
+              $('#'+name).fadeOut(1000,function(){
+                var temp = $('#message').height();
+                if($('#message').height() < $(window).height()*0.20){
+                  var curSize= parseInt($('#message').css('font-size'));
+                  $('#message').css('font-size',curSize + $(window).height()*0.01);
+                }
+              });
             }
           }
         },3000);
@@ -88,7 +94,14 @@
               $('#message').append('<span hidden id="'+name+'">'+data.name+", "+'</span>');
             }
             //console.log('<span hidden id="'+name+'">'+data.name+'</span>')
-            $('#'+name).fadeIn(700);
+            $('#'+name).fadeIn(700, function(){
+              var temp = $('#message').height();
+              if($('#message').height() > $(window).height()*0.3){
+                var curSize= parseInt($('#message').css('font-size'));
+                $('#message').css('font-size',curSize - $(window).height()*0.01);
+              }
+              console.log('Height of message is ',temp);
+            });
             //$("#full-message").fitText();
             
           }
